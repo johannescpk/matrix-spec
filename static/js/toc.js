@@ -100,6 +100,10 @@ function makeToc() {
 
   // exclude headings that don't have IDs.
   headings = headings.filter(heading => heading.id);
+
+  // exclude headings with the no-toc class
+  headings = headings.filter(heading => !heading.classList.contains('no-toc'));
+
   uniquifyHeadingIds(headings);
 
   // exclude .rendered-data > h1 headings from the ToC
@@ -308,7 +312,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const observer = new IntersectionObserver(handleIntersectionUpdate);
 
   document.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach((section) => {
-    observer.observe(section);
+    if (!section.classList.contains('no-toc'))
+      observer.observe(section);
   });
 
 });

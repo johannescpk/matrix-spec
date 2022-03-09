@@ -3,11 +3,15 @@
   Render a table listing the properties of an object, given:
 
   * `caption`: optional caption for the table
+
+  * `anchor`: optional HTML element id for the table
+
   * `properties`: dictionary of the properties to list, each given as:
-  `property_name` : `property_data`
+    `property_name` : `property_data`
+
   * `required`: array containing the names of required properties.
-  In some cases (such as response body specifications) this isn't used, and
-  instead properties have a `required` boolean attribute. We support this too.
+     In some cases (such as response body specifications) this isn't used, and
+     instead properties have a `required` boolean attribute. We support this too.
 
 */}}
 
@@ -17,10 +21,10 @@
 
 {{ if $properties }}
 
-<table class>
- {{ with $caption }}
- <caption>{{ . }}</caption>
- {{ end }}
+{{ if $caption }}
+<h3 class="no-toc">{{ $caption }}</h3>
+{{ end }}
+<table {{ if .anchor }} id="{{ .anchor }}"{{ end }}>
  <thead>
   <th class="col-name">Name</th>
   <th class="col-type">Type</th>
